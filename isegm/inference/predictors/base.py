@@ -113,7 +113,7 @@ class BasePredictor(object):
             neg_clicks = neg_clicks + (num_max_points - len(neg_clicks)) * [(-1, -1, -1)]
             total_clicks.append(pos_clicks + neg_clicks)
 
-        return torch.tensor(total_clicks, device=self.device)
+        return torch.tensor(total_clicks, device=self.device, dtype=torch.int32)
 
     def get_states(self):
         return {

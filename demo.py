@@ -14,6 +14,7 @@ def main():
     torch.backends.cudnn.deterministic = True
     checkpoint_path = utils.find_checkpoint(cfg.INTERACTIVE_MODELS_PATH, args.checkpoint)
     model = utils.load_is_model(checkpoint_path, args.device, cpu_dist_maps=True)
+    model.to("mps")
 
     root = tk.Tk()
     root.minsize(960, 480)
@@ -47,7 +48,8 @@ def parse_args():
     if args.cpu:
         args.device =torch.device('cpu')
     else:
-        args.device = torch.device(f'cuda:{args.gpu}')
+        print("MPS")
+        args.device = torch.device(f'mps')
     cfg = exp.load_config_file(args.cfg, return_edict=True)
 
     return args, cfg
